@@ -16,4 +16,4 @@ https://www.lightningdesignsystem.com/components/progress-ring/
 
 `icon` [{icon:name}] _default is ''_
 
-`label` [0-99A-Z] _deafult is ''_
+`label` [0-99A-Z] _default is ''_
