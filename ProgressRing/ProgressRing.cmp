@@ -1,0 +1,44 @@
+<aura:component>
+    <aura:attribute name="percent" type="String" default="0" description="0 to 100" />
+    <aura:attribute name="variant" type="String" default="" description="warning, expired, active-step, complete" />
+    <aura:attribute name="label" type="String" default="" description="Step number" />
+    <aura:attribute name="size" type="String" default="" description="large" />
+    <aura:attribute name="icon" type="String" default="" description="icon name e.g. utility:warning" />
+    
+    <aura:attribute name="svg" type="String" default="" access="private" />
+     
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:handler name="change" value="{!v.percent}" action="{!c.update}"/>
+    <aura:handler name="change" value="{!v.variant}" action="{!c.update}"/>
+    
+    <div class="{!'slds-progress-ring' + (v.variant ? ' slds-progress-ring_' + v.variant : '') + (v.size ? ' slds-progress-ring_' + v.size : '')}">
+        <div class="slds-progress-ring__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{!v.percent}">
+            
+            <aura:unescapedHtml value="{!v.svg}" />
+            
+        </div>
+        <div class="slds-progress-ring__content">
+            
+            <aura:if isTrue="{!v.variant == 'complete'}">
+            	<lightning:icon iconName="utility:check" alternativeText="Complete" />
+            </aura:if>
+            
+            <aura:if isTrue="{!v.variant == 'warning'}">
+            	<lightning:icon iconName="utility:warning" alternativeText="Warning" />
+            </aura:if>
+            
+            <aura:if isTrue="{!v.variant == 'expired'}">
+            	<lightning:icon iconName="utility:error" alternativeText="Error" />
+            </aura:if>
+            
+            <aura:if isTrue="{!v.icon != '' &amp;&amp; v.variant != 'complete' &amp;&amp; v.variant != 'warning' &amp;&amp; v.variant != 'expired'}">
+            	<lightning:icon iconName="{v.icon}" />
+            </aura:if>
+            
+            <aura:if isTrue="{!v.icon == '' &amp;&amp; v.variant != 'complete' &amp;&amp; v.variant != 'warning' &amp;&amp; v.variant != 'expired'}">
+            	{!v.label}
+            </aura:if>
+            
+        </div>
+    </div>
+</aura:component>
